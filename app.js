@@ -50,12 +50,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function jump() {
+        clearInterval(downTimerId);
         upTimerId = setInterval(function() {
             playerBottomSpace += 20;
             player.style.bottom = `${playerBottomSpace}px`;
             
             if(playerBottomSpace > 350) {
                 fall();
+            }
+        }, 30);
+    }
+
+    function fall() {
+        clearInterval(upTimerId);
+        downTimerId = setInterval(function () {
+            playerBottomSpace -= 5;
+            player.style.bottom = `${playerBottomSpace}px`;
+
+            if(playerBottomSpace <= 0 ) {
+                gameOver();
             }
         }, 30);
     }
