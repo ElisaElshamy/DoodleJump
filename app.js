@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let playerBottomSpace = 150;
     let isGameOver = false;
     let platformCount = 5;
+    let platforms = [];
 
     class Platform {
         constructor(newPlatBottom) {
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let platGap = 600 / platformCount;
             let newPlatBottom = 100 + i * platGap;
             let newPlatform = new Platform(newPlatBottom);
+            platforms.push(newPlatform);      
         }
     }
 
