@@ -73,6 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 30);
     }
 
+    function gameOver() {
+        console.log('Game Over');
+        isGameOver = true;
+        clearInterval(upTimerId);
+        clearInterval(downTimerId);
+    }
+
     function start() {
         if (!isGameOver) {
             createPlayer();
