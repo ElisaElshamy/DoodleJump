@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const player = document.createElement('div');
     let playerLeftSpace = 50;
     let playerBottomSpace = 150;
+    let isGameOver = false;
+    let platformCount = 5;
 
     function createPlayer() {
         grid.appendChild(player);
@@ -12,7 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createPlatforms() {
-
+        for(let i = 0; i < platformCount; i++) {
+            let platGap = 600 / platformCount;
+            let newPlatBottom = 100 + i * platGap;
+            let newPlatform = new Platform();
+        }
     }
 
     function start() {
