@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createPlayer() {
         grid.appendChild(player);
         player.classList.add('player');
+        playerLeftSpace = platforms[0].left; 
         player.style.left = `${playerLeftSpace}px`;
         player.style.bottom = `${playerBottomSpace}px`;
     }
@@ -82,8 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function start() {
         if (!isGameOver) {
-            createPlayer();
             createPlatforms();
+            createPlayer();
             setInterval(movePlatforms, 30);
             jump();
         }
