@@ -11,5 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
         player.style.bottom = `${playerBottomSpace}px`;
     }
 
-    createPlayer();
+    function createPlatforms() {
+
+    }
+
+    function start() {
+        if (!isGameOver) {
+            createPlayer();
+            createPlatforms();
+        }
+    }
+
+    start();
+
+
 });
