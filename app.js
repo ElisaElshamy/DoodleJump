@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let isGameOver = false;
     let platformCount = 5;
     let platforms = [];
+    let upTimerId;
+    let downTimerId;
 
     class Platform {
         constructor(newPlatBottom) {
@@ -47,11 +49,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function jump() {
+        upTimerId = setInterval(function() {
+            playerBottomSpace += 20;
+            player.style.bottom = `${playerBottomSpace}px`;
+            
+            if(playerBottomSpace > 350) {
+                fall();
+            }
+        }, 30);
+    }
+
     function start() {
         if (!isGameOver) {
             createPlayer();
             createPlatforms();
             setInterval(movePlatforms, 30);
+            jump();
         }
     }
 
