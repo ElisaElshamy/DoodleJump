@@ -102,17 +102,44 @@ document.addEventListener('DOMContentLoaded', () => {
         if(e.key === "ArrowLeft") {
             moveLeft();
         } else if(e.key === "ArrowRight") {
-
+            moveRight();
         } else if(e.key === "ArrowUp") {
 
         } 
     }
 
     function moveLeft() {
+        if(isGoingRight) {
+            clearInterval(rightTimerId);
+            isGoingRight = false;
+        }
+
         isGoingLeft = true;
         leftTimerId = setInterval(function () {
-            playerLeftSpace -= 5;
-            player.style.left = `${playerLeftSpace}px`;
+            if (playerLeftSpace >= 0) {
+                playerLeftSpace -= 5;
+                player.style.left = `${playerLeftSpace}px`;
+            } else {
+                moveRight();
+            }
+
+        }, 30);
+    }
+
+    function moveRight() {
+        if(isGoingLeft) {
+            clearInterval(leftTimerId);
+            isGoingLeft = false;
+        }
+
+        isGoingRight = true;
+        rightTimerId = setInterval(function () {
+            if(playerLeftSpace <= 340) {
+                playerLeftSpace += 5;
+                player.left.style = `${playerLeftSpace}px`;
+            } else {
+                moveLeft();
+            }
         }, 30);
     }
 
