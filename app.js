@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
     const player = document.createElement('div');
+    let startPoint = 150;
     let playerLeftSpace = 50;
-    let playerBottomSpace = 150;
+    let playerBottomSpace = startPoint;
     let isGameOver = false;
     let platformCount = 5;
     let platforms = [];
     let upTimerId;
     let downTimerId;
+    let isJumping = true;
 
     class Platform {
         constructor(newPlatBottom) {
@@ -52,18 +54,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function jump() {
         clearInterval(downTimerId);
+        isJumping = true;
         upTimerId = setInterval(function() {
             playerBottomSpace += 20;
             player.style.bottom = `${playerBottomSpace}px`;
             
-            if(playerBottomSpace > 350) {
+            if(playerBottomSpace > startPoint + 200) {
                 fall();
             }
+
         }, 30);
     }
 
     function fall() {
         clearInterval(upTimerId);
+        isJumping = false;
         downTimerId = setInterval(function () {
             playerBottomSpace -= 5;
             player.style.bottom = `${playerBottomSpace}px`;
@@ -71,7 +76,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if(playerBottomSpace <= 0 ) {
                 gameOver();
             }
+
+            platforms.forEach(platform => {
+                if (
+                    (playerBottomSpace >= platform.bottom) &&
+                    (playerBottomSpace <= platform.bottom + 15) &&
+                    ((playerLeftSpace + 60) >= platform.left) &&
+                    (playerLeftSpace <= (platform.left + 85)) &&
+                    !isJumping
+                ) {
+                    console.log('landed');
+                    startPoint = playerBottomSpace;
+                    jump();
+                }
+            });
+
         }, 30);
+    }
+
+    function control(e) {
+        if(e.key === "ArrowLeft") {
+
+        } else if(e.key === "ArrowRight") {
+
+        } else if(e.key === "ArrowUp") {
+
+        } 
     }
 
     function gameOver() {
