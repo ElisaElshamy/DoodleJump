@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let upTimerId;
     let downTimerId;
     let isJumping = true;
+    let isGoingLeft = false;
+    let isGoingRight = false;
+    let leftTimerId;
+    let rightTimerId;
 
     class Platform {
         constructor(newPlatBottom) {
@@ -96,13 +100,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function control(e) {
         if(e.key === "ArrowLeft") {
-
+            moveLeft();
         } else if(e.key === "ArrowRight") {
 
         } else if(e.key === "ArrowUp") {
 
         } 
     }
+
+    function moveLeft() {
+        isGoingLeft = true;
+        leftTimerId = setInterval(function () {
+            playerLeftSpace -= 5;
+            player.style.left = `${playerLeftSpace}px`;
+        }, 30);
+    }
+
 
     function gameOver() {
         console.log('Game Over');
@@ -117,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
             createPlayer();
             setInterval(movePlatforms, 30);
             jump();
+            document.addEventListener('keyup', control);
         }
     }
 
