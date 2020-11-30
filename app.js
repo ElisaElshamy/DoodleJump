@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isGoingRight = false;
     let leftTimerId;
     let rightTimerId;
+    let score = 0;
 
     class Platform {
         constructor(newPlatBottom) {
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     let firstPlatform = platforms[0].visual;
                     firstPlatform.classList.remove('platform');
                     platforms.shift();
+                    score++;
 
                     let newPlatform = new Platform(600);
                     platforms.push(newPlatform);
@@ -132,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 moveRight();
             }
 
-        }, 30);
+        }, 20);
     }
 
     function moveRight() {
@@ -149,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 moveLeft();
             }
-        }, 30);
+        }, 20);
     }
 
     function moveStraight() {
@@ -162,8 +164,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function gameOver() {
         console.log('Game Over');
         isGameOver = true;
+
+        while(grid.firstChild) {
+            grid.removeChild(grid.firstChild);
+        }
+
+        grid.innerHTML = score;
         clearInterval(upTimerId);
         clearInterval(downTimerId);
+        clearInterval(leftTimerId);
+        clearInterval(rightTimerId);
     }
 
     function start() {
