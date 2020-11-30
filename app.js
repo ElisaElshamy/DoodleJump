@@ -52,6 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 platform.bottom -= 4;
                 let visual = platform.visual;
                 visual.style.bottom = `${platform.bottom}px`; 
+
+                if(platform.bottom < 10) {
+                    let firstPlatform = platforms[0].visual;
+                    firstPlatform.classList.remove('platform');
+                    platforms.shift();
+                }
             })
         }
     }
@@ -104,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if(e.key === "ArrowRight") {
             moveRight();
         } else if(e.key === "ArrowUp") {
-
+            moveStraight();
         } 
     }
 
@@ -143,6 +149,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 30);
     }
 
+    function moveStraight() {
+        isGoingLeft = false;
+        isGoingRight = false;
+        clearInterval(rightTimerId);
+        clearInterval(leftTimerId);
+    }
 
     function gameOver() {
         console.log('Game Over');
